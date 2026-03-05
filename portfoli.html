@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<title>Portfolio - Thomas Boulanger</title>
+
+<style>
+
+/* BODY */
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  background: #0f172a; /* bleu nuit sombre */
+  color: #f3f4f6; /* texte clair */
+  overflow-x: hidden;
+}
+
+/* PARTICLES BACKGROUND */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: #0f172a;
+}
+
+/* HEADER */
+header {
+  padding: 50px;
+  text-align: center;
+  border-radius: 0 0 10px 10px;
+  background: rgba(30, 41, 59, 0.85); /* semi-transparent pour laisser les particules visibles */
+  color: #f3f4f6;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 40px;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+header p {
+  font-size: 18px;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+/* NAVBAR */
+nav {
+  background: rgba(30, 41, 59, 0.85);
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #374151;
+}
+
+nav a {
+  color: #f3f4f6;
+  margin: 0 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #60a5fa; /* bleu clair */
+}
+
+/* SECTIONS */
+section {
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 30px;
+  border-radius: 10px;
+  background: rgba(243, 244, 246, 0.15); /* semi-transparent pour voir les particules */
+  color: #f3f4f6;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h2 {
+  color: #60a5fa;
+  margin-bottom: 20px;
+}
+
+/* TIMELINE */
+.timeline {
+  position: relative;
+  margin-top: 40px;
+  padding-left: 50px;
+  border-left: 2px solid rgba(203, 213, 225,0.5);
+}
+
+.timeline-item {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #60a5fa; /* bleu pastel */
+}
+
+.timeline-date {
+  font-weight: bold;
+  color: #a5b4fc; /* bleu clair pastel */
+  margin-bottom: 5px;
+}
+
+.timeline-content {
+  background: rgba(243,244,246,0.15);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(203,213,225,0.3);
+  transition: 0.3s;
+}
+
+.timeline-content:hover {
+  transform: translateX(5px);
+  border-color: #60a5fa;
+}
+
+/* SKILLS */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill {
+  background: rgba(243,244,246,0.15);
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  border: 1px solid rgba(203,213,225,0.3);
+  transition: 0.3s;
+}
+
+.skill:hover {
+  background: #60a5fa;
+  color: white;
+}
+
+/* PROJECTS */
+.project {
+  background: rgba(243,244,246,0.15);
+  border: 1px solid rgba(203,213,225,0.3);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.project:hover {
+  transform: translateY(-5px);
+  border-color: #60a5fa;
+}
+
+.project h3 {
+  margin-top: 0;
+  color: #60a5fa;
+}
+
+/* CONTACT */
+.contact p {
+  margin: 8px 0;
+}
+
+.contact a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  background: rgba(30,41,59,0.85);
+  border-top: 1px solid #374151;
+  font-size: 14px;
+  color: #f3f4f6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<header>
+<h1>Thomas Boulanger</h1>
+<p>Étudiant en BTS SIO • Réseau & Informatique</p>
+</header>
+
+<nav>
+<a href="#about">À propos</a>
+<a href="#timeline">Parcours</a>
+<a href="#skills">Compétences</a>
+<a href="#projects">Projets</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<section id="about">
+<h2>À propos</h2>
+<p>
+Je suis passionné par le réseau, le montage photo et vidéo.
+Je travaille avec HTML pour la création de ce portfolio et je maîtrise Photoshop.
+</p>
+<p>
+Après plusieurs petits boulots, mon engagement dans l'armée m'a fait réfléchir sur mon avenir.
+J'ai décidé de reprendre mes études à 26 ans.
+</p>
+<p>
+J'ai obtenu mon DAEU avec mention et je poursuis aujourd’hui un BTS SIO afin de travailler dans l’informatique et les réseaux.
+</p>
+</section>
+
+<section id="timeline">
+<h2>Parcours</h2>
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="timeline-date">2025 - 2027</div>
+<div class="timeline-content">
+<h3>BTS SIO</h3>
+<p>Formation Services Informatiques aux Organisations orientée réseaux et infrastructures.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-date">2024 - 2025</div>
+<div class="timeline-content">
+<h3>DAEU B - Mention</h3>
+<p>Diplôme d'accès aux études universitaires obtenu avec mention afin de reprendre des études en informatique.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-date">Octobre 2022 - Juin 2023</div>
+<div class="timeline-content">
+<h3>Engagement dans l'armée</h3>
+<p>Expérience qui m'a permis de développer discipline, rigueur et esprit d'équipe.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="skills">
+<h2>Compétences</h2>
+<div class="skills">
+<div class="skill">HTML</div>
+<div class="skill">Photoshop</div>
+<div class="skill">Cisco Packet Tracer</div>
+<div class="skill">Réseaux</div>
+<div class="skill">Configuration Switch</div>
+<div class="skill">Configuration Routeur</div>
+</div>
+</section>
+
+<section id="projects">
+<h2>Projets</h2>
+
+<div class="project">
+<h3>Refonte de baies réseau</h3>
+<p>Réorganisation de plusieurs baies informatiques et configuration de switch et routeur.</p>
+<p><strong>Technologies :</strong> Cisco</p>
+</div>
+
+<div class="project">
+<h3>Montage photo et vidéo</h3>
+<p>Création de miniatures YouTube et retouche photo.</p>
+<p><strong>Technologies :</strong> Photoshop</p>
+</div>
+
+<div class="project">
+<h3>Portfolio personnel</h3>
+<p>Création d’un portfolio HTML pour présenter mes compétences et projets.</p>
+<p><strong>Technologies :</strong> HTML, CSS</p>
+</div>
+
+</section>
+
+<section id="contact" class="contact">
+<h2>Contact</h2>
+<p>Email :
+<a href="mailto:thomasboulanger99@outlook.fr">thomasboulanger99@outlook.fr</a>
+</p>
+<p>Téléphone :
+<a href="tel:0635108800">06 35 10 88 00</a>
+</p>
+<p>LinkedIn :
+<a href="https://www.linkedin.com/in/thomas-boulanger-b20a80231" target="_blank">Voir mon profil LinkedIn</a>
+</p>
+</section>
+
+<footer>
+<p>© 2026 Thomas Boulanger • Portfolio BTS SIO</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+
+/* PARTICLES */
+particlesJS("particles-js",{
+  "particles":{
+    "number":{"value":50},
+    "color":{"value":"#60a5fa"},
+    "shape":{"type":"circle"},
+    "opacity":{"value":0.3},
+    "size":{"value":2},
+    "line_linked":{
+      "enable":true,
+      "distance":120,
+      "color":"#60a5fa",
+      "opacity":0.3,
+      "width":1
+    },
+    "move":{"enable":true,"speed":1.5}
+  },
+  "interactivity":{
+    "events":{"onhover":{"enable":true,"mode":"repulse"}}
+  }
+});
+
+/* ANIMATION SCROLL */
+const sections = document.querySelectorAll("section");
+function revealSections(){
+  const trigger = window.innerHeight * 0.85;
+  sections.forEach(section=>{
+    const top = section.getBoundingClientRect().top;
+    if(top < trigger){
+      section.classList.add("visible");
+    }
+  });
+}
+window.addEventListener("scroll", revealSections);
+revealSections();
+
+</script>
+
+</body>
+</html>
