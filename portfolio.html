@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio - Thomas Boulanger</title>
+
+<style>
+/* BODY */
+body{
+font-family: "Segoe UI", sans-serif;
+margin:0;
+background:#0f172a;
+color:#e2e8f0;
+}
+
+/* PARTICLES BACKGROUND */
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-1;
+background:#0f172a;
+}
+
+/* HEADER */
+header{
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+padding:50px;
+text-align:center;
+border-radius:0 0 10px 10px;
+}
+
+header h1{
+margin:0;
+font-size:40px;
+}
+
+header p{
+font-size:18px;
+opacity:0.9;
+}
+
+/* NAVBAR */
+nav{
+background:#020617;
+padding:15px;
+text-align:center;
+border-bottom:1px solid #1e293b;
+}
+
+nav a{
+color:#e2e8f0;
+margin:0 20px;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#3b82f6;
+}
+
+/* SECTIONS */
+section{
+padding:40px;
+max-width:900px;
+margin:auto;
+margin-top:30px;
+background:#020617;
+border-radius:10px;
+border:1px solid #1e293b;
+}
+
+h2{
+color:#3b82f6;
+}
+
+/* SKILLS */
+.skills{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.skill{
+background:#1e293b;
+padding:10px 15px;
+border-radius:6px;
+font-size:14px;
+border:1px solid #334155;
+}
+
+/* PROJECTS */
+.project{
+background:#020617;
+border:1px solid #334155;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
+transition:0.3s;
+}
+
+.project:hover{
+transform:translateY(-5px);
+border-color:#3b82f6;
+}
+
+.project h3{
+margin-top:0;
+color:#60a5fa;
+}
+
+/* CONTACT */
+.contact p{
+margin:8px 0;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:20px;
+margin-top:40px;
+background:#020617;
+border-top:1px solid #1e293b;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- PARTICLES BACKGROUND -->
+<div id="particles-js"></div>
+
+<header>
+<h1>Thomas Boulanger</h1>
+<p>Étudiant en BTS SIO • Réseau & Informatique</p>
+</header>
+
+<nav>
+<a href="#about">À propos</a>
+<a href="#skills">Compétences</a>
+<a href="#projects">Projets</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<section id="about">
+<h2>À propos</h2>
+
+<p>
+Je suis passionné par le réseau, le montage photo et vidéo.
+Je travaille avec HTML pour la création de ce portfolio et je maîtrise Photoshop.
+</p>
+
+<p>
+Après avoir fait plusieurs petits boulots, mon engagement dans l'armée m'a fait réfléchir sur mon avenir.
+J'ai décidé de reprendre mes études à 26 ans.
+</p>
+
+<p>
+J'ai obtenu mon DAEU avec mention et je poursuis aujourd’hui un BTS SIO afin de travailler dans le domaine de l’informatique et des réseaux.
+</p>
+
+</section>
+
+<section id="skills">
+
+<h2>Compétences</h2>
+
+<div class="skills">
+<div class="skill">HTML</div>
+<div class="skill">Photoshop</div>
+<div class="skill">Cisco Packet Tracer</div>
+<div class="skill">Réseaux</div>
+<div class="skill">Configuration Switch</div>
+<div class="skill">Configuration Routeur</div>
+</div>
+
+</section>
+
+<section id="projects">
+
+<h2>Projets</h2>
+
+<div class="project">
+<h3>Refonte de baies réseau</h3>
+<p>
+Reconfiguration et réorganisation de plusieurs baies informatiques.
+Installation et configuration de switch et routeur.
+</p>
+<p><strong>Technologies :</strong> Cisco</p>
+</div>
+
+<div class="project">
+<h3>Montage photo et vidéo</h3>
+<p>
+Création de miniatures YouTube et retouche photo.
+Montage visuel et amélioration d’images.
+</p>
+<p><strong>Technologies :</strong> Photoshop</p>
+</div>
+
+<div class="project">
+<h3>Portfolio personnel</h3>
+<p>
+Création d’un portfolio en HTML afin de présenter mes compétences et projets.
+</p>
+<p><strong>Technologies :</strong> HTML, CSS</p>
+</div>
+
+</section>
+
+<section id="contact" class="contact">
+
+<h2>Contact</h2>
+<p>Email : thomasboulanger99@outlook.fr</p>
+<p>Téléphone : 06 35 10 88 00</p>
+<p>LinkedIn : www.linkedin.com/in/thomas-boulanger-b20a80231</p>
+
+</section>
+
+<footer>
+<p>© 2026 Thomas Boulanger • Portfolio BTS SIO</p>
+</footer>
+
+<!-- PARTICLES.JS LIBRARY -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+particlesJS("particles-js", {
+"particles": {
+"number": { "value": 80 },
+"color": { "value": "#3b82f6" },
+"shape": { "type": "circle" },
+"opacity": { "value": 0.5 },
+"size": { "value": 3 },
+"line_linked": {
+"enable": true,
+"distance": 150,
+"color": "#3b82f6",
+"opacity": 0.4,
+"width": 1
+},
+"move": {
+"enable": true,
+"speed": 2
+}
+},
+"interactivity": {
+"events": {
+"onhover": { "enable": true, "mode": "repulse" }
+}
+}
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
