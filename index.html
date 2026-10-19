@@ -525,7 +525,8 @@ revealSections();
 </script>
 
 <script>
-// Récupération dynamique d'actualités via Google Actualités RSS et RSS2JSON.
+// Récupération dynamique des actualités depuis le flux RSS de Google Actualités.
+// AllOrigins sert de relais pour permettre au navigateur de lire le flux RSS.
 async function chargerActualites() {
   const conteneur = document.getElementById("rss-feed");
   if (!conteneur) return;
@@ -533,47 +534,56 @@ async function chargerActualites() {
   const flux = "https://news.google.com/rss/search?q=" +
     encodeURIComponent("impact environnemental numérique") +
     "&hl=fr&gl=FR&ceid=FR:fr";
-  const api = "https://api.rss2json.com/v1/api.json?rss_url=" +
-    encodeURIComponent(flux);
+  const api = "https://api.allorigins.win/raw?url=" + encodeURIComponent(flux);
+
+  conteneur.textContent = "Chargement des actualités...";
 
   try {
     const reponse = await fetch(api);
     if (!reponse.ok) throw new Error("Erreur HTTP " + reponse.status);
 
-    const donnees = await reponse.json();
-    if (donnees.status !== "ok" || !Array.isArray(donnees.items) || donnees.items.length === 0) {
-      throw new Error("Aucune actualité reçue");
+    const texteXML = await reponse.text();
+    const documentXML = new DOMParser().parseFromString(texteXML, "application/xml");
+    if (documentXML.querySelector("parsererror")) {
+      throw new Error("Le flux RSS reçu n'est pas un XML valide");
     }
+
+    const articles = Array.from(documentXML.querySelectorAll("item")).slice(0, 5);
+    if (articles.length === 0) throw new Error("Aucune actualité reçue");
 
     conteneur.replaceChildren();
 
-    donnees.items.slice(0, 5).forEach(item => {
+    articles.forEach(item => {
       const article = document.createElement("article");
       article.className = "article";
 
       const titre = document.createElement("h4");
       const lien = document.createElement("a");
-      lien.textContent = item.title || "Lire l'article";
-      lien.href = item.link;
+      lien.textContent = item.querySelector("title")?.textContent?.trim() || "Lire l'article";
+      lien.href = item.querySelector("link")?.textContent?.trim() || "#";
       lien.target = "_blank";
       lien.rel = "noopener noreferrer";
       titre.appendChild(lien);
       article.appendChild(titre);
 
-      const description = document.createElement("p");
-      const texteDescription = new DOMParser()
-        .parseFromString(item.description || "", "text/html")
+      const descriptionBrute = item.querySelector("description")?.textContent || "";
+      const descriptionTexte = new DOMParser()
+        .parseFromString(descriptionBrute, "text/html")
         .body.textContent || "";
-      description.textContent = texteDescription.trim().slice(0, 350);
-      if (description.textContent) article.appendChild(description);
+      if (descriptionTexte.trim()) {
+        const description = document.createElement("p");
+        description.textContent = descriptionTexte.trim().slice(0, 350);
+        article.appendChild(description);
+      }
 
-      if (item.pubDate) {
-        const date = document.createElement("small");
-        const dateArticle = new Date(item.pubDate);
-        date.textContent = Number.isNaN(dateArticle.getTime())
-          ? ""
-          : "Publié le " + dateArticle.toLocaleDateString("fr-FR");
-        article.appendChild(date);
+      const dateBrute = item.querySelector("pubDate")?.textContent;
+      if (dateBrute) {
+        const dateArticle = new Date(dateBrute);
+        if (!Number.isNaN(dateArticle.getTime())) {
+          const date = document.createElement("small");
+          date.textContent = "Publié le " + dateArticle.toLocaleDateString("fr-FR");
+          article.appendChild(date);
+        }
       }
 
       conteneur.appendChild(article);
