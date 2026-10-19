@@ -230,6 +230,20 @@ color:#60a5fa;
 margin-top:0;
 }
 
+.article h4 a{
+color:#60a5fa;
+text-decoration:none;
+}
+
+.article h4 a:hover{
+text-decoration:underline;
+}
+
+.article small{
+color:#94a3b8;
+font-size:12px;
+}
+
 /* CONTACT */
 
 .contact p{
@@ -420,28 +434,12 @@ Accéder au site ADEME
 
 </div>
 
-<h3>Articles analysés</h3>
+<h3>Actualités récentes</h3>
 
-<div class="article">
+<p>Les actualités ci-dessous sont récupérées automatiquement depuis Google Actualités grâce à un flux RSS.</p>
 
-<h4>Impact énergétique des datacenters</h4>
-
-<p>
-Les datacenters consomment énormément d’électricité pour stocker et traiter les données.
-Avec la croissance du cloud et de l’intelligence artificielle, leur consommation énergétique augmente fortement.
-</p>
-
-</div>
-
-<div class="article">
-
-<h4>Recyclage du matériel informatique</h4>
-
-<p>
-Le recyclage du matériel informatique permet de réduire les déchets électroniques
-et de limiter l’extraction de métaux rares nécessaires à la fabrication des composants.
-</p>
-
+<div id="rss-feed" aria-live="polite">
+<p>Chargement des actualités...</p>
 </div>
 
 </section>
@@ -524,6 +522,72 @@ section.classList.add("visible");
 window.addEventListener("scroll",revealSections);
 revealSections();
 
+</script>
+
+<script>
+// Récupération dynamique d'actualités via Google Actualités RSS et RSS2JSON.
+async function chargerActualites() {
+  const conteneur = document.getElementById("rss-feed");
+  if (!conteneur) return;
+
+  const flux = "https://news.google.com/rss/search?q=" +
+    encodeURIComponent("impact environnemental numérique") +
+    "&hl=fr&gl=FR&ceid=FR:fr";
+  const api = "https://api.rss2json.com/v1/api.json?rss_url=" +
+    encodeURIComponent(flux);
+
+  try {
+    const reponse = await fetch(api);
+    if (!reponse.ok) throw new Error("Erreur HTTP " + reponse.status);
+
+    const donnees = await reponse.json();
+    if (donnees.status !== "ok" || !Array.isArray(donnees.items) || donnees.items.length === 0) {
+      throw new Error("Aucune actualité reçue");
+    }
+
+    conteneur.replaceChildren();
+
+    donnees.items.slice(0, 5).forEach(item => {
+      const article = document.createElement("article");
+      article.className = "article";
+
+      const titre = document.createElement("h4");
+      const lien = document.createElement("a");
+      lien.textContent = item.title || "Lire l'article";
+      lien.href = item.link;
+      lien.target = "_blank";
+      lien.rel = "noopener noreferrer";
+      titre.appendChild(lien);
+      article.appendChild(titre);
+
+      const description = document.createElement("p");
+      const texteDescription = new DOMParser()
+        .parseFromString(item.description || "", "text/html")
+        .body.textContent || "";
+      description.textContent = texteDescription.trim().slice(0, 350);
+      if (description.textContent) article.appendChild(description);
+
+      if (item.pubDate) {
+        const date = document.createElement("small");
+        const dateArticle = new Date(item.pubDate);
+        date.textContent = Number.isNaN(dateArticle.getTime())
+          ? ""
+          : "Publié le " + dateArticle.toLocaleDateString("fr-FR");
+        article.appendChild(date);
+      }
+
+      conteneur.appendChild(article);
+    });
+  } catch (erreur) {
+    console.error("Erreur lors du chargement du flux RSS :", erreur);
+    conteneur.replaceChildren();
+    const message = document.createElement("p");
+    message.textContent = "Impossible de charger les actualités pour le moment. Réessayez plus tard.";
+    conteneur.appendChild(message);
+  }
+}
+
+chargerActualites();
 </script>
 
 </body>
