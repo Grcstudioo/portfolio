@@ -436,7 +436,7 @@ Accéder au site ADEME
 
 <h3>Actualités récentes</h3>
 
-<p>Les actualités ci-dessous sont récupérées automatiquement depuis Google Actualités grâce à un flux RSS.</p>
+<p>Les actualités ci-dessous sont récupérées automatiquement depuis le flux RSS de GreenIT.fr, spécialisé dans le numérique responsable.</p>
 
 <div id="rss-feed" aria-live="polite">
 <p>Chargement des actualités...</p>
@@ -525,21 +525,19 @@ revealSections();
 </script>
 
 <script>
-// Récupération dynamique des actualités depuis le flux RSS de Google Actualités.
-// AllOrigins sert de relais pour permettre au navigateur de lire le flux RSS.
+// Récupération des actualités GreenIT.fr via son flux RSS.
+// Le relais cors.dev permet au navigateur de lire le flux depuis GitHub Pages.
 async function chargerActualites() {
   const conteneur = document.getElementById("rss-feed");
   if (!conteneur) return;
 
-  const flux = "https://news.google.com/rss/search?q=" +
-    encodeURIComponent("impact environnemental numérique") +
-    "&hl=fr&gl=FR&ceid=FR:fr";
-  const api = "https://api.allorigins.win/raw?url=" + encodeURIComponent(flux);
+  const fluxGreenIT = "https://www.greenit.fr/feed/";
+  const urlRelais = "https://proxy.cors.dev/" + fluxGreenIT;
 
   conteneur.textContent = "Chargement des actualités...";
 
   try {
-    const reponse = await fetch(api);
+    const reponse = await fetch(urlRelais);
     if (!reponse.ok) throw new Error("Erreur HTTP " + reponse.status);
 
     const texteXML = await reponse.text();
@@ -549,7 +547,7 @@ async function chargerActualites() {
     }
 
     const articles = Array.from(documentXML.querySelectorAll("item")).slice(0, 5);
-    if (articles.length === 0) throw new Error("Aucune actualité reçue");
+    if (articles.length === 0) throw new Error("Aucune actualité reçue dans le flux GreenIT.fr");
 
     conteneur.replaceChildren();
 
@@ -589,10 +587,10 @@ async function chargerActualites() {
       conteneur.appendChild(article);
     });
   } catch (erreur) {
-    console.error("Erreur lors du chargement du flux RSS :", erreur);
+    console.error("Erreur lors du chargement du flux RSS GreenIT.fr :", erreur);
     conteneur.replaceChildren();
     const message = document.createElement("p");
-    message.textContent = "Impossible de charger les actualités pour le moment. Réessayez plus tard.";
+    message.textContent = "Impossible de charger les actualités pour le moment. Consultez directement GreenIT.fr.";
     conteneur.appendChild(message);
   }
 }
